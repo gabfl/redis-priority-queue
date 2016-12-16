@@ -3,8 +3,8 @@
 
 # Redis server
 REDIS_HOST="127.0.0.1"
-REDIS_PORT="6483"
-REDIS_AUTH="97e4cda4851539dbb33a891fdd714499501a4dc8"
+REDIS_PORT="6379"
+REDIS_AUTH=""
 
 # Queue vars
 QUEUE_NAME="sample_queue"
