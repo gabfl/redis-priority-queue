@@ -1,12 +1,15 @@
 -- redis-priority-queue
 -- Author: Gabriel Bordeaux (gabfl)
 -- Github: https://github.com/gabfl/redis-priority-queue
--- Version: 1.0
+-- Version: 1.0.1
 -- (can only be used in 3.2+)
 
 -- Get mandatory vars
 local action = ARGV[1];
 local queueName = ARGV[2];
+
+-- Define misc vars
+local queueMonitor = 'rpq|names'
 
 -- returns true if empty or null
 -- http://stackoverflow.com/a/19667498/50501
@@ -18,7 +21,7 @@ end
 assert(not isempty(action), 'ERR1: Action is missing')
 assert(not isempty(queueName), 'ERR2: Queue name is missing')
 
-if action == "push"
+if action == 'push'
 then
     -- debug
     redis.debug('Push new item');
@@ -35,9 +38,12 @@ then
     -- Making sure required fields are not nil
     assert(not isempty(item), 'ERR5: Item is missing')
 
+    -- Add queue name to the set of queues (for monitoring purpose)
+    redis.call("SADD", queueMonitor, queueName)
+
     -- Add item to queue
     return redis.call('ZADD', queueName, 'NX', priority, item)
-elseif action == "pop" or action == "peek" or action == "list" or action == "view"
+elseif action == 'pop' or action == 'peek' or action == 'list' or action == 'view'
 then
     -- debug
     redis.debug('Pop an item');
@@ -68,7 +74,7 @@ then
     local popped = redis.call(rangeMethod, queueName, fromMin, toMax, 'LIMIT', 0, itemsCount)
 
     -- If items are popped from the list
-    if action == "pop"
+    if action == 'pop'
     then
         -- Rotate thru popped items
         if popped then
@@ -82,8 +88,14 @@ then
         end
     end
 
+    -- If the queue is empty, remove from the set of queues
+    if next(popped) == nil
+    then
+        redis.call('SREM', queueMonitor, queueName)
+    end
+
     return popped;
-elseif action == "size" or action == "count"
+elseif action == 'size' or action == 'count'
 then
     -- debug
     redis.debug('Get queue size');
@@ -98,7 +110,15 @@ then
     redis.debug('...to priotity # -> '..toMax);
 
     -- return queue count
-    return redis.call('ZCOUNT', queueName, fromMin, toMax)
+    local count = redis.call('ZCOUNT', queueName, fromMin, toMax)
+
+    -- If the queue is empty, remove from the set of queues
+    if count == 0
+    then
+        redis.call('SREM', queueMonitor, queueName)
+    end
+
+    return count;
 else
     error('ERR3: Invalid action.') 
 end
