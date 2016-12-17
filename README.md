@@ -91,3 +91,25 @@ count my_super_list 1 1110
 ### Return
 
 Output is similar to [ZCOUNT](https://redis.io/commands/zcount)
+
+## Queue monitoring
+
+The queues can be easily monitored with the Python script `src/queue_monitor.py`
+
+To use the queue monitor, you need to ensure python is installed and use the following command to add the required packages:
+`pip install prettytable argparse redis`
+
+### Usage example
+
+```
+./src/queue_monitor.py -H [host] -p [port] (-a [auth] -n [dbnum])
++-------------------+-------+-----------------+----------------+
+| Queue Name        | Total | Priority <= 100 | Priority > 100 |
++-------------------+-------+-----------------+----------------+
+| late_fees_pending |    44 |              12 |             32 |
+| new_books         |   223 |             123 |            100 |
+| book_recycle      |    13 |              13 |              0 |
+| book_orders       |   112 |              56 |             56 |
+| book_returns      | 1,144 |           1,120 |             24 |
++-------------------+-------+-----------------+----------------+
+```
