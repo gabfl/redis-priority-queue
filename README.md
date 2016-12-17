@@ -4,6 +4,7 @@ redis-priority-queue is a simple work queue similar to [Redis lists](https://red
 
  - An item can be added with a priority (between -9007199254740992 and 9007199254740992)
  - Multiple items can be popped from the queue at the same time
+ - A queue monitoring tool to easily see how many items are in each queue
 
 redis-priority-queue is based on [Redis sorted sets](https://redis.io/commands#sorted_set) and all sorted sets commands can be used alongside this project.
 
@@ -44,7 +45,7 @@ Output is similar to [ZADD](https://redis.io/commands/zadd)
 ## `pop`: Pop an item from the queue
 
 ### Usage
-`pop my_list item [(string) asc/desc (default: 'asc')] [(int) numer_of_items (default: 1')]`
+`pop my_list [(string) asc/desc (default: 'asc')] [(int) numer_of_items (default: 1')]`
 
 ### Examples
 
@@ -113,3 +114,7 @@ To use the queue monitor, you need to ensure python is installed and use the fol
 | book_returns      | 1,144 |           1,120 |             24 |
 +-------------------+-------+-----------------+----------------+
 ```
+
+## Clients
+
+ - [PHP client](clients/php/)
