@@ -5,7 +5,6 @@ class Queue extends Lua
 {
     // Private
     private $_queueName;
-    private $_args = []; // Array of arguments
 
     /**
      * __construct function.

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import sys, getopt, redis, argparse
 from prettytable import PrettyTable
@@ -41,7 +41,7 @@ for queueName in queueNames:
     countC = r.zcount(queueName, 101, '+inf')
 
     # Add row
-    t.add_row([queueName, '{0:,}'.format(countA), '{0:,}'.format(countB), '{0:,}'.format(countC)])
+    t.add_row([queueName.decode("utf-8"), '{0:,}'.format(countA), '{0:,}'.format(countB), '{0:,}'.format(countC)])
 
 # Print table
-print t
+print (t);
