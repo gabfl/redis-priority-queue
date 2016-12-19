@@ -80,10 +80,10 @@ class Queue extends Lua
      * popOne function.
      *
      * @access public
-     * @param string $orderBy (default: 'asc')
+     * @param string $orderBy (default: 'desc')
      * @return void
      */
-    public function popOne(string $orderBy = 'asc')
+    public function popOne(string $orderBy = 'desc')
     {
         // Get item
         $item = $this->popMany($orderBy, 1);
@@ -101,10 +101,10 @@ class Queue extends Lua
      * Alias to popOne();
      *
      * @access public
-     * @param string $orderBy (default: 'asc')
+     * @param string $orderBy (default: 'desc')
      * @return misc
      */
-    public function pop(string $orderBy = 'asc')
+    public function pop(string $orderBy = 'desc')
     {
         return $this->popOne($orderBy);
     }
@@ -113,11 +113,11 @@ class Queue extends Lua
      * popMany function.
      *
      * @access public
-     * @param string $orderBy (default: 'asc')
+     * @param string $orderBy (default: 'desc')
      * @param int $numberOfItems (default: 1)
      * @return void
      */
-    public function popMany(string $orderBy = 'asc', int $numberOfItems = 1)
+    public function popMany(string $orderBy = 'desc', int $numberOfItems = 1)
     {
         // Set args
         $this->prepareArgs('pop', [$orderBy, $numberOfItems]);
@@ -129,11 +129,11 @@ class Queue extends Lua
      * peek function.
      *
      * @access public
-     * @param string $orderBy (default: 'asc')
+     * @param string $orderBy (default: 'desc')
      * @param int $numberOfItems (default: 1)
      * @return misc
      */
-    public function peek(string $orderBy = 'asc', int $numberOfItems = 1)
+    public function peek(string $orderBy = 'desc', int $numberOfItems = 1)
     {
         // Set args
         $this->prepareArgs('peek', [$orderBy, $numberOfItems]);

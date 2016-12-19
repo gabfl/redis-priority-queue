@@ -1,7 +1,7 @@
 -- redis-priority-queue
 -- Author: Gabriel Bordeaux (gabfl)
 -- Github: https://github.com/gabfl/redis-priority-queue
--- Version: 1.0.1
+-- Version: 1.0.2
 -- (can only be used in 3.2+)
 
 -- Get mandatory vars
@@ -46,10 +46,10 @@ then
 elseif action == 'pop' or action == 'peek' or action == 'list' or action == 'view'
 then
     -- debug
-    redis.debug('Pop an item');
+    redis.debug('Pop/peek items');
 
     -- Define vars
-    local orderBY = ARGV[3] or 'asc';
+    local orderBY = ARGV[3] or 'desc';
     local itemsCount = ARGV[4] or 1;
 
     -- Sorting vars

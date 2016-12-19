@@ -19,11 +19,11 @@ $res = $q->peek();
 echo json_encode($res)."\n";
 
 // Run
-echo "* peek (one, descending):\n";
-$res = $q->peek('desc');
+echo "* peek (one, ascending):\n";
+$res = $q->peek('asc');
 echo json_encode($res)."\n";
 
 // Run
 echo "* peek (many):\n";
-$res = $q->peek('asc', MULTIPLE_ITEMS_COUNT);
+$res = $q->peek('desc', MULTIPLE_ITEMS_COUNT);
 echo json_encode($res)."\n";

@@ -22,11 +22,11 @@ class RpqQueue:
         return self.queue(args = args)
 
     # Pop an item / some items
-    def pop(self, orderBy = 'asc', numberOfItems = 1):
+    def pop(self, orderBy = 'desc', numberOfItems = 1):
         return self.queue(args = ['pop', self.queueName, orderBy, numberOfItems])
 
     # Peek in a queue
-    def peek(self, orderBy = 'asc', numberOfItems = 1):
+    def peek(self, orderBy = 'desc', numberOfItems = 1):
         return self.queue(args = ['peek', self.queueName, orderBy, numberOfItems])
 
     # Get queue size

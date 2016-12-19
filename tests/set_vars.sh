@@ -10,5 +10,5 @@ REDIS_AUTH=""
 QUEUE_NAME="sample_queue"
 ITEM_NAME="sample_item"
 MULTIPLE_ITEMS_COUNT=5
-ORDER_BY="asc"
+ORDER_BY="desc"
 PRIORITY=1

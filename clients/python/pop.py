@@ -36,10 +36,10 @@ print ('* pop (one):')
 items = RpqQueue.pop()
 listItems(items)
 
-print ('* pop (one, descending):')
-items = RpqQueue.pop('desc')
+print ('* pop (one, ascending):')
+items = RpqQueue.pop('asc')
 listItems(items)
 
 print ('* pop (many):')
-items = RpqQueue.pop('asc', 5)
+items = RpqQueue.pop('desc', 5)
 listItems(items)

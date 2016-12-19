@@ -46,19 +46,19 @@ Output is similar to [ZADD](https://redis.io/commands/zadd)
 ## `pop`: Pop an item from the queue
 
 ### Usage
-`pop my_list [(string) asc/desc (default: 'asc')] [(int) numer_of_items (default: 1')]`
+`pop my_list [(string) asc/desc (default: 'desc')] [(int) numer_of_items (default: 1')]`
 
 ### Examples
 
 ```
--- Pop 1 item ordered by ascending priority
+-- Pop 1 item ordered by descending priority
 pop my_super_list
 
--- Pop 1 item ordered by descending priority
-pop my_super_list desc
+-- Pop 1 item ordered by ascending priority
+pop my_super_list asc
 
--- Pop 5 items ordered by ascending priority
-pop my_super_list asc 5
+-- Pop 5 items ordered by descending priority
+pop my_super_list desc 5
 ```
 
 ### Return

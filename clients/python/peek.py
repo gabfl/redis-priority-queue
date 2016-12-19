@@ -36,10 +36,10 @@ print ('* peek (one):')
 items = RpqQueue.peek()
 listItems(items)
 
-print ('* peek (one, descending):')
-items = RpqQueue.peek('desc')
+print ('* peek (one, ascending):')
+items = RpqQueue.peek('asc')
 listItems(items)
 
 print ('* peek (many):')
-items = RpqQueue.peek('asc', 5)
+items = RpqQueue.peek('desc', 5)
 listItems(items)

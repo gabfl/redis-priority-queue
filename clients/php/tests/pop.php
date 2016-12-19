@@ -19,11 +19,11 @@ $res = $q->popOne();
 echo $res."\n";
 
 // Run
-echo "* pop (one, descending):\n";
-$res = $q->popOne('desc');
+echo "* pop (one, ascending):\n";
+$res = $q->popOne('asc');
 echo $res."\n";
 
 // Run
 echo "* pop (many):\n";
-$res = $q->popMany('asc', MULTIPLE_ITEMS_COUNT);
+$res = $q->popMany('desc', MULTIPLE_ITEMS_COUNT);
 echo json_encode($res)."\n";
