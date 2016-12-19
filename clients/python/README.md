@@ -42,9 +42,11 @@ res = RpqQueue.push('test_item')
 print (res);
 
 print ('* pop:')
-items = RpqQueue.pop()
-print (items[0]);
-
+item = RpqQueue.popOne()
+if item:
+    print(item.decode("utf-8"))
+else:
+    print ('Queue is empty');
 ```
 
 ## More examples

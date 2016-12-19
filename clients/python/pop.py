@@ -33,13 +33,19 @@ RpqQueue.setqueueName('simple_queue')
 # Pop an item / some items
 
 print ('* pop (one):')
-items = RpqQueue.pop()
-listItems(items)
+item = RpqQueue.popOne()
+if item:
+    print(item.decode("utf-8"))
+else:
+    print ('Queue is empty');
 
 print ('* pop (one, ascending):')
-items = RpqQueue.pop('asc')
-listItems(items)
+item = RpqQueue.popOne('asc')
+if item:
+    print(item.decode("utf-8"))
+else:
+    print ('Queue is empty');
 
 print ('* pop (many):')
-items = RpqQueue.pop('desc', 5)
+items = RpqQueue.popMany('desc', 5)
 listItems(items)
