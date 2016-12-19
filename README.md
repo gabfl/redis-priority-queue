@@ -118,3 +118,4 @@ To use the queue monitor, you need to ensure python is installed and use the fol
 ## Clients
 
  - [PHP client](clients/php/)
+ - [Python client](clients/python/)

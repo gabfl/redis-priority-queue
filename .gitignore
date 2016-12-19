@@ -1,1 +1,7 @@
+# Misc
 tools/
+
+# Python
+__pycache__/
+*.py[cod]
+.Python
