@@ -14,9 +14,9 @@ PHP client for redis-priority-queue.
 use RedisPriorityQueue as RQP;
 
 // Requires
-require_once(__DIR__.'/../lib/Lua.php');
-require_once(__DIR__.'/../lib/Queue.php');
-require_once(__DIR__.'/../lib/Redis.php');
+require_once('lib/Lua.php');
+require_once('lib/Queue.php');
+require_once('lib/Redis.php');
 
 // Create a Redis instance
 $r = new RQP\Redis($host, $port, $auth, $dbnum);
@@ -29,10 +29,12 @@ $q->setQueueName('sample_queue');
 
 // Push an item in the queue
 $res = $q->push('item');
-echo $res;
+echo "* Push an item:\n";
+echo $res."\n";
 
 // Pop an item from the queue
-$res = $q->pop();
+$res = $q->popOne();
+echo "* Pop an item:\n";
 echo json_encode($res)."\n";
 ```
 

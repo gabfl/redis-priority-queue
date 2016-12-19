@@ -15,15 +15,15 @@ $q->setQueueName(QUEUE_NAME);
 
 // Run
 echo "* pop (one):\n";
-$res = $q->pop();
-echo json_encode($res)."\n";
+$res = $q->popOne();
+echo $res."\n";
 
 // Run
 echo "* pop (one, descending):\n";
-$res = $q->pop('desc');
-echo json_encode($res)."\n";
+$res = $q->popOne('desc');
+echo $res."\n";
 
 // Run
 echo "* pop (many):\n";
-$res = $q->pop('asc', MULTIPLE_ITEMS_COUNT);
+$res = $q->popMany('asc', MULTIPLE_ITEMS_COUNT);
 echo json_encode($res)."\n";

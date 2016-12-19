@@ -3,6 +3,7 @@
 redis-priority-queue is a simple work queue similar to [Redis lists](https://redis.io/commands#list) with the following added features:
 
  - An item can be added with a priority (between -9007199254740992 and 9007199254740992)
+ - Queues are automatically de-duplicated (duplicate items are voided when pushing them)
  - Multiple items can be popped from the queue at the same time
  - A queue monitoring tool to easily see how many items are in each queue
 
@@ -20,7 +21,7 @@ redis-cli --eval src/redis-priority-queue.lua null null , [push|pop|peek|count] 
 redis-cli --eval src/redis-priority-queue.lua null null , push my_super_list my_item
 
 -- Pop an item
-redis-cli --eval src/redis-priority-queue.lua null null , pop my_super_list my_item
+redis-cli --eval src/redis-priority-queue.lua null null , pop my_super_list
 ```
 
 ## `push`: Push an item in a queue

@@ -77,14 +77,47 @@ class Queue extends Lua
     }
 
     /**
+     * popOne function.
+     *
+     * @access public
+     * @param string $orderBy (default: 'asc')
+     * @return void
+     */
+    public function popOne(string $orderBy = 'asc')
+    {
+        // Get item
+        $item = $this->popMany($orderBy, 1);
+
+        // Get first (and unique) item from array
+        if(is_array($item) && count($item) > 0) {
+            return $item[0];
+        }
+
+        return null;
+    }
+
+    /**
      * pop function.
+     * Alias to popOne();
+     *
+     * @access public
+     * @param string $orderBy (default: 'asc')
+     * @return misc
+     */
+    public function pop(string $orderBy = 'asc')
+    {
+        return $this->popOne($orderBy);
+    }
+
+    /**
+     * popMany function.
      *
      * @access public
      * @param string $orderBy (default: 'asc')
      * @param int $numberOfItems (default: 1)
-     * @return misc
+     * @return void
      */
-    public function pop(string $orderBy = 'asc', int $numberOfItems = 1)
+    public function popMany(string $orderBy = 'asc', int $numberOfItems = 1)
     {
         // Set args
         $this->prepareArgs('pop', [$orderBy, $numberOfItems]);
