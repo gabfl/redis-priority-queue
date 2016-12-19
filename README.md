@@ -83,7 +83,7 @@ Alias: `size`
 
 ```
 -- Count all items from the list
-count my_super_list;
+count my_super_list
 
 -- Count all items with a priority between 1 and 1110
 count my_super_list 1 1110

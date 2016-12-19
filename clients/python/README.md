@@ -18,7 +18,7 @@ from lib.RpqQueue import RpqQueue
 from lib.RpqLua import RpqLua
 
 # Redis instance
-r = redis.StrictRedis(host='127.0.0.1', port=6483, db=0, password='97e4cda4851539dbb33a891fdd714499501a4dc8')
+r = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='')
 
 # Load LUA Script
 RpqLua = RpqLua()
