@@ -6,10 +6,10 @@ from lib.RpqQueue import RpqQueue
 from lib.RpqLua import RpqLua
 from utils.redis_vars import *
 
-# Helper to print items
 def listItems(items):
+    '''Helper to print items'''
     for item in items:
-        print (item.decode("utf-8"));
+        print (item);
 
 # Redis instance
 # !!! set Redis credentials into utils/redis_vars.py
@@ -33,13 +33,22 @@ RpqQueue.setqueueName('simple_queue')
 # Peek in a queue
 
 print ('* peek (one):')
-items = RpqQueue.peek()
-listItems(items)
+item = RpqQueue.peekOne()
+if item:
+    print (item);
+else:
+    print ('Queue is empty');
 
 print ('* peek (one, ascending):')
-items = RpqQueue.peek('asc')
-listItems(items)
+item = RpqQueue.peekOne('asc')
+if item:
+    print (item);
+else:
+    print ('Queue is empty');
 
 print ('* peek (many):')
-items = RpqQueue.peek('desc', 5)
-listItems(items)
+items = RpqQueue.peekMany('desc', 5)
+if items:
+    listItems(items)
+else:
+    print ('Queue is empty');

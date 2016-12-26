@@ -6,12 +6,12 @@ from lib.RpqQueue import RpqQueue
 from lib.RpqLua import RpqLua
 from utils.redis_vars import *
 
-# Helper: get a ranom integer
 def generateRandom():
+    '''Helper: get a ranom integer'''
     return random.randint(1, 100000);
 
-# Helper generate item name
 def getItem():
+    '''Helper generate item name'''
     return 'item_' + str(generateRandom());
 
 # Redis instance

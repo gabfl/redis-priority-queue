@@ -5,24 +5,24 @@ class RpqLua:
     queue = None # Loaded queue
     script = None # Script source
 
-    # Get a file content
     def file_get_contents(self, filename):
+        '''Get a file content'''
         with open(filename) as f:
             return f.read()
 
-    # Set a Redis connection
     def setRedisConnection(self, connection):
+        '''Set a Redis connection'''
         self.connection = connection;
 
-    # Load LUA script source code from a file
     def loadSource(self, path):
+        '''Load LUA script source code from a file'''
         self.source = self.file_get_contents(path);
 
-    # Load the script into Redis
     def register(self):
+        '''Load the script into Redis'''
         self.queue = self.connection.register_script(self.source)
         return self.queue;
 
-#     # Return loaded queue
 #     def getQueue:
+#         '''Return loaded queue'''
 #         return self.queue;

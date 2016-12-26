@@ -44,7 +44,7 @@ print (res);
 print ('* pop:')
 item = RpqQueue.popOne()
 if item:
-    print(item.decode("utf-8"))
+    print (item);
 else:
     print ('Queue is empty');
 ```

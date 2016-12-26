@@ -4,26 +4,20 @@ class RpqQueue:
     queue = None # Loaded queue
     queueName = None # Queue name
 
-    # Check if there are elements in an iterable variable
-    def has_elements(self, item):
-        try:
-            i = iter(item)
-            next(i)
+    def bytesDecode(self, item):
+        '''Decode Bytes to utf-8 for Python 3 compatibility'''
+        return item.decode("utf-8");
 
-            return True
-        except StopIteration:
-            return False
-
-    # Define loaded LUA at class level
     def setLuaScript(self, luaScript):
+        '''Define loaded LUA at class level'''
         self.queue = luaScript;
 
-    # Define loaded queue name at class level
     def setqueueName(self, queueName):
+        '''Define loaded queue name at class level'''
         self.queueName = queueName;
 
-    # Push an item
     def push(self, item, priority = None):
+        '''Push an item'''
         # Build arg list
         args = ['push', self.queueName, item]
         if (priority != None):
@@ -31,29 +25,56 @@ class RpqQueue:
 
         return self.queue(args = args)
 
-    # alias for popOne()
     def pop(self, orderBy = 'desc'):
+        '''alias for popOne()'''
         return self.popOne(orderBy)
 
-    # Pop an item
     def popOne(self, orderBy = 'desc'):
+        '''Pop an item'''
         item = self.popMany(orderBy, 1)
 
-        if self.has_elements(item): # There is an item
+        if item: # There is an item
             return item[0];
         else:
             return None;
 
-    # Pop many items
     def popMany(self, orderBy = 'desc', numberOfItems = 1):
-        return self.queue(args = ['pop', self.queueName, orderBy, numberOfItems])
+        '''Pop many items'''
+        items = self.queue(args = ['pop', self.queueName, orderBy, numberOfItems])
+        if items:
+            # Decode all items from bytes to utf-8
+            items = tuple(map(self.bytesDecode, items));
 
-    # Peek in a queue
-    def peek(self, orderBy = 'desc', numberOfItems = 1):
-        return self.queue(args = ['peek', self.queueName, orderBy, numberOfItems])
+            return items;
+        else:
+            return None;
 
-    # Get queue size
+    def peek(self, orderBy = 'desc'):
+        '''alias for peekOne()'''
+        return self.peekOne(orderBy)
+
+    def peekOne(self, orderBy = 'desc'):
+        '''Peek an item'''
+        item = self.peekMany(orderBy, 1)
+
+        if item: # There is an item
+            return item[0];
+        else:
+            return None;
+
+    def peekMany(self, orderBy = 'desc', numberOfItems = 1):
+        '''Peek many items'''
+        items = self.queue(args = ['peek', self.queueName, orderBy, numberOfItems])
+        if items:
+            # Decode all items from bytes to utf-8
+            items = tuple(map(self.bytesDecode, items));
+
+            return items;
+        else:
+            return None;
+
     def count(self, priorityMin = None, priorityMax = None):
+        '''Get queue size'''
         # Build arg list
         args = ['size', self.queueName]
         if (priorityMin != None):
