@@ -4,8 +4,8 @@ Python client for redis-priority-queue.
 
 ## Requirements
 
- - Python 3
- - redis python package (`pip install redis`)
+ - Python 2 or 3
+ - Redis Python package (`pip install redis`)
 
 ## Sample use
 
@@ -21,16 +21,11 @@ from lib.RpqLua import RpqLua
 r = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='')
 
 # Load LUA Script
-RpqLua = RpqLua()
-RpqLua.setRedisConnection(r);
-RpqLua.loadSource('../../src/redis-priority-queue.lua');
+RpqLua = RpqLua(r, '../../src/redis-priority-queue.lua');
 queue = RpqLua.register();
 
 # RpqQueue instance
-RpqQueue = RpqQueue()
-
-# Set LUA Script
-RpqQueue.setLuaScript(queue)
+RpqQueue = RpqQueue(queue)
 
 # Set queue name
 RpqQueue.setqueueName('simple_queue')

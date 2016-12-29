@@ -11,7 +11,7 @@ def generateRandom():
     return random.randint(1, 100000);
 
 def getItem():
-    '''Helper generate item name'''
+    '''Helper: generate item name'''
     return 'item_' + str(generateRandom());
 
 # Redis instance
@@ -19,16 +19,11 @@ def getItem():
 r = redis.StrictRedis(host=rHost, port=rPort, db=rDbnum, password=rAuth)
 
 # Load LUA Script
-RpqLua = RpqLua()
-RpqLua.setRedisConnection(r);
-RpqLua.loadSource('../../src/redis-priority-queue.lua');
+RpqLua = RpqLua(r, '../../src/redis-priority-queue.lua');
 queue = RpqLua.register();
 
 # RpqQueue instance
-RpqQueue = RpqQueue()
-
-# Set LUA Script
-RpqQueue.setLuaScript(queue)
+RpqQueue = RpqQueue(queue);
 
 # Set queue name
 RpqQueue.setqueueName('simple_queue')

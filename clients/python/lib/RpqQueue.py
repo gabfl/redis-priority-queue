@@ -3,14 +3,18 @@
 class RpqQueue:
     queue = None # Loaded queue
     queueName = None # Queue name
+    
+    def __init__(self, queue):
+        '''set RpqLua registered queue'''
+        self.setRegisteredQueue(queue);
 
     def bytesDecode(self, item):
         '''Decode Bytes to utf-8 for Python 3 compatibility'''
         return item.decode("utf-8");
 
-    def setLuaScript(self, luaScript):
-        '''Define loaded LUA at class level'''
-        self.queue = luaScript;
+    def setRegisteredQueue(self, queue):
+        '''set RpqLua registered queue'''
+        self.queue = queue;
 
     def setqueueName(self, queueName):
         '''Define loaded queue name at class level'''

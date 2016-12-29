@@ -5,6 +5,11 @@ class RpqLua:
     queue = None # Loaded queue
     script = None # Script source
 
+    def __init__(self, redisConnection, luaPath):
+        '''Sets Redis connection, load LUA from path'''
+        self.setRedisConnection(redisConnection);
+        self.loadSource(luaPath);
+
     def file_get_contents(self, filename):
         '''Get a file content'''
         with open(filename) as f:
