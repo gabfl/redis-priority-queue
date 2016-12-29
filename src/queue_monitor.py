@@ -34,7 +34,7 @@ t.align['Priority <= 100'] = "r" # Right align numbers
 t.align['Priority > 100'] = "r" # Right align numbers
 
 # Add a row par queue
-for queueName in queueNames:
+for queueName in sorted(queueNames):
     # Get counts
     countA = r.zcount(queueName, '-inf', '+inf')
     countB = r.zcount(queueName, '-inf', 100)
