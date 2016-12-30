@@ -11,7 +11,7 @@ PHP client for redis-priority-queue.
 
 ```php
 <?php
-use RedisPriorityQueue as RQP;
+use RedisPriorityQueue as RPQ;
 
 // Requires
 require_once('lib/Lua.php');
@@ -19,10 +19,10 @@ require_once('lib/Queue.php');
 require_once('lib/Redis.php');
 
 // Create a Redis instance
-$r = new RQP\Redis($host, $port, $auth, $dbnum);
+$r = new RPQ\Redis($host, $port, $auth, $dbnum);
 
 // Create Queue instance with Redis connection
-$q = new RQP\Queue($r->getConnection());
+$q = new RPQ\Queue($r->getConnection());
 
 // Set queue name
 $q->setQueueName('sample_queue');

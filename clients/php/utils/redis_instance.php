@@ -1,5 +1,5 @@
 <?php
-use RedisPriorityQueue as RQP;
+use RedisPriorityQueue as RPQ;
 
 // Requires
 require_once(__DIR__.'/../lib/Redis.php');
@@ -11,5 +11,5 @@ $auth = '';
 $dbnum = 0;
 
 // Redis instance
-$r = new RQP\Redis($host, $port, $auth, $dbnum);
+$r = new RPQ\Redis($host, $port, $auth, $dbnum);
 // var_dump($r->getConnection());

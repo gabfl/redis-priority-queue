@@ -1,5 +1,5 @@
 <?php
-use RedisPriorityQueue as RQP;
+use RedisPriorityQueue as RPQ;
 
 // Requires
 require_once(__DIR__.'/../utils/redis_instance.php');
@@ -8,7 +8,7 @@ require_once(__DIR__.'/../lib/Lua.php');
 require_once(__DIR__.'/../lib/Queue.php');
 
 // Create Queue instance with Redis connection
-$q = new RQP\Queue($r->getConnection());
+$q = new RPQ\Queue($r->getConnection());
 
 // Set queue name
 $q->setQueueName(QUEUE_NAME);
