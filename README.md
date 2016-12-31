@@ -5,9 +5,14 @@ redis-priority-queue is a simple work queue similar to [Redis lists](https://red
  - An item can be added with a priority (between -9007199254740992 and 9007199254740992)
  - Queues are automatically de-duplicated (duplicate items are voided when pushing them)
  - Multiple items can be popped from the queue at the same time
- - A queue monitoring tool to easily see how many items are in each queue
+ - A [queue monitoring tool](#queue-monitoring) to easily see how many items are in each queue
 
 redis-priority-queue is based on [Redis sorted sets](https://redis.io/commands#sorted_set) and all sorted sets commands can be used alongside this project.
+
+## Clients
+
+ - [Python client](clients/python/)
+ - [PHP client](clients/php/)
 
 ## Basic usage
 
@@ -104,19 +109,27 @@ To use the queue monitor, you need to ensure python is installed and use the fol
 ### Usage example
 
 ```
+# Basic usage
 ./src/queue_monitor.py -H [host] -p [port] (-a [auth] -n [dbnum])
-+-------------------+-------+-----------------+----------------+
-| Queue Name        | Total | Priority <= 100 | Priority > 100 |
-+-------------------+-------+-----------------+----------------+
-| late_fees_pending |    44 |              12 |             32 |
-| new_books         |   223 |             123 |            100 |
-| book_recycle      |    13 |              13 |              0 |
-| book_orders       |   112 |              56 |             56 |
-| book_returns      | 1,144 |           1,120 |             24 |
-+-------------------+-------+-----------------+----------------+
++-------------------+-------+-----------+----------+
+| Queue name        | Total | Up to 100 | From 101 |
++-------------------+-------+-----------+----------+
+| book_orders       |    44 |        12 |       32 |
+| book_recycle      |   223 |       123 |      100 |
+| book_returns      |    13 |        13 |        0 |
+| late_fees_pending |   112 |        56 |       56 |
+| new_books         | 1,144 |     1,120 |       24 |
++-------------------+-------+-----------+----------+
+
+# Specify your own groups
+./src/queue_monitor.py -H [host] -p [port] (-a [auth] -n [dbnum]) -s "0->1000" -s "1001->2000" -s "2001->3000"
++-------------------+-------+------------+----------------+----------------+
+| Queue name        | Total | 0 to 1,000 | 1,001 to 2,000 | 2,001 to 3,000 |
++-------------------+-------+------------+----------------+----------------+
+| book_orders       |    44 |         24 |              9 |             11 |
+| book_recycle      |   223 |        127 |             40 |             56 |
+| book_returns      |    13 |         13 |              0 |              0 |
+| late_fees_pending |   112 |         58 |             13 |             41 |
+| new_books         | 1,144 |      1,142 |              2 |              0 |
++-------------------+-------+------------+----------------+----------------+
 ```
-
-## Clients
-
- - [PHP client](clients/php/)
- - [Python client](clients/python/)
