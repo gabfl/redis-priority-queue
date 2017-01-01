@@ -5,7 +5,7 @@
 # Github: https://github.com/gabfl/redis-priority-queue
 # Compatible with python 2 & 3
 
-import sys, getopt, redis, argparse
+import redis, argparse
 from prettytable import PrettyTable
 
 # Parse arguments

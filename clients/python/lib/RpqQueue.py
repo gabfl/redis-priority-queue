@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 
 class RpqQueue:
-    queue = None # Loaded queue
-    queueName = None # Queue name
-    
     def __init__(self, queue):
         '''set RpqLua registered queue'''
         self.setRegisteredQueue(queue);
@@ -24,7 +21,7 @@ class RpqQueue:
         '''Push an item'''
         # Build arg list
         args = ['push', self.queueName, item]
-        if (priority != None):
+        if priority is not None:
             args.append(priority);
 
         return self.queue(args = args)
@@ -81,9 +78,9 @@ class RpqQueue:
         '''Get queue size'''
         # Build arg list
         args = ['size', self.queueName]
-        if (priorityMin != None):
+        if priorityMin is not None:
             args.append(priorityMin);
-        if (priorityMin != None and priorityMax != None):
-            args.append(priorityMax);
+            if priorityMax is not None:
+                args.append(priorityMax);
 
         return self.queue(args = args)

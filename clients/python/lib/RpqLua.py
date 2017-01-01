@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
 class RpqLua:
-    connection = None # Redis Instance
-    queue = None # Loaded queue
-    script = None # Script source
-
     def __init__(self, redisConnection, luaPath):
         '''Sets Redis connection, load LUA from path'''
         self.setRedisConnection(redisConnection);
@@ -27,7 +23,3 @@ class RpqLua:
         '''Load the script into Redis'''
         self.queue = self.connection.register_script(self.source)
         return self.queue;
-
-#     def getQueue:
-#         '''Return loaded queue'''
-#         return self.queue;

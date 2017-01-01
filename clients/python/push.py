@@ -7,7 +7,7 @@ from lib.RpqLua import RpqLua
 from utils.redis_vars import *
 
 def generateRandom():
-    '''Helper: get a ranom integer'''
+    '''Helper: get a random integer'''
     return random.randint(1, 100000);
 
 def getItem():
