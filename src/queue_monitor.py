@@ -3,7 +3,7 @@
 # redis-priority-queue -> queue monitor
 # Author: Gabriel Bordeaux (gabfl)
 # Github: https://github.com/gabfl/redis-priority-queue
-# Compatible with python 2 & 3
+# Compatible with python 2.7 & 3
 
 import redis, argparse
 from prettytable import PrettyTable

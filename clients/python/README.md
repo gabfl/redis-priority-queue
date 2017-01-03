@@ -4,7 +4,7 @@ Python client for redis-priority-queue.
 
 ## Requirements
 
- - Python 2 or 3
+ - Python 2.7 & 3
  - Redis Python package (`pip install redis`)
 
 ## Sample use
