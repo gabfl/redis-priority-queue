@@ -43,6 +43,8 @@ def getColumnTitle(min, max):
         return 'Up to ' + '{0:,}'.format(max);
     elif str(max) == '+inf':
         return 'From ' + '{0:,}'.format(min);
+    elif min == max:
+        return '{0:,}'.format(min);
     else:
         return '{0:,}'.format(min) + ' to ' + '{0:,}'.format(max);
 
