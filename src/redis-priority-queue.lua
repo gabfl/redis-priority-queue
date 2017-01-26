@@ -67,7 +67,7 @@ then
         fromMin = '+inf';
         toMax ='-inf';
     else
-        error('ERR4: Invalid sorting order.') 
+        error('ERR4: Invalid sorting order.')
     end
 
     -- Retrieve items
@@ -120,5 +120,5 @@ then
 
     return count;
 else
-    error('ERR3: Invalid action.') 
+    error('ERR3: Invalid action.')
 end

@@ -92,6 +92,17 @@ class Lua
 
         // If the file exists
         if (file_exists($this->_luaFilePath)) {
+            // Get the sh1 of the LUA file
+            $fileSha = $this->getLuaFileSha();
+
+            // Check if the script is already loaded in Redis
+            if ($this->exists($fileSha)) {
+                // Set script hash
+                $this->setSha($fileSha);
+
+                return true;
+            }
+
             // Get script content
             $script = file_get_contents($this->_luaFilePath);
 
@@ -103,6 +114,28 @@ class Lua
         }
 
         return false;
+    }
+
+    /**
+     * Get the sha1 of the LUA file
+     * @return string
+     */
+    private function getLuaFileSha(): string
+    {
+        return sha1_file($this->_luaFilePath);
+    }
+
+    /**
+     * Check if the script is already loaded in Redis
+     * @param  string $sha Sha of LUA script
+     * @return bool
+     */
+    private function exists(string $sha): bool
+    {
+        // Check if the script exists in Redis
+        $exists = $this->_connection->script('exists', $sha);
+
+        return (isset($exists[0]) && $exists[0] == 1) ? true : false;
     }
 
     /**
