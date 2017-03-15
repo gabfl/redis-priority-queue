@@ -92,7 +92,7 @@ class Lua
 
         // If the file exists
         if (file_exists($this->_luaFilePath)) {
-            // Get the sh1 of the LUA file
+            // Get the sha1 of the LUA file
             $fileSha = $this->getLuaFileSha();
 
             // Check if the script is already loaded in Redis
@@ -148,7 +148,7 @@ class Lua
     {
         // Load script
         if (!$this->loadScript()) {
-            return false;
+            return 0;
         }
 
         return $this->_connection->evalSha($this->_sha, $this->_args);
