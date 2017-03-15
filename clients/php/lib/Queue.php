@@ -73,14 +73,7 @@ class Queue extends Lua
         // Set args
         $this->prepareArgs('push', $args);
 
-        $run = $this->run();
-
-        // Fix for Redis unexpected behavior (returns '[1]' instead of '1')
-        if (is_array($run) && count($run) > 0) {
-            return $run[0];
-        }
-
-        return $run;
+        return $this->run();
     }
 
     /**
