@@ -5,7 +5,7 @@
 # Github: https://github.com/gabfl/redis-priority-queue
 # Compatible with python 2.7 & 3
 
-import redis, argparse, json
+import redis, argparse
 from prettytable import PrettyTable
 
 # Parse arguments
@@ -18,8 +18,8 @@ parser.add_argument("-a", "--auth",
                     help="Redis server authentification")
 parser.add_argument("-n", "--dbnum", type=int, default=0,
                     help="Redis server database number")
-parser.add_argument("-s", "--sort_groups",
-                    help="Sort groups", type=json.loads)
+parser.add_argument("-s", "--sort_groups", action='append',
+                    help="Sort groups")
 args = parser.parse_args()
 
 def setSortGroups(sortGroups = None):
@@ -27,8 +27,9 @@ def setSortGroups(sortGroups = None):
     if sortGroups is None: # Default groups
         return [('-inf', '+inf'), ('-inf', 100), (101, '+inf')];
     else:
-        sortGroups.insert(0, ('-inf', '+inf'))
-        return sortGroups;
+        groups = [('-inf', '+inf')]; # Default mandatory group (Total)
+        groups.extend([tuple(map(int, sortGroup.split('->'))) for sortGroup in sortGroups])
+        return groups;
 
 def getCount(queueName, min, max):
     """Fetches set count from Redis"""
@@ -58,6 +59,8 @@ def setColumnAlign(titles):
 
 # Redis connection
 r = redis.StrictRedis(host=args.host, port=args.port, db=args.dbnum, password=args.auth)
+
+print (args.sort_groups);
 
 # Sort groups
 sortGroups = setSortGroups(args.sort_groups);
