@@ -104,7 +104,7 @@ Output is similar to [ZCOUNT](https://redis.io/commands/zcount)
 The queues can be easily monitored with the Python script `src/queue_monitor.py`
 
 To use the queue monitor, you need to ensure python is installed and use the following command to add the required packages:
-`pip install prettytable argparse redis`
+`pip install prettytable argparse redis json`
 
 ### Usage example
 
