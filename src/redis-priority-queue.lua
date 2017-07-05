@@ -1,7 +1,7 @@
 -- redis-priority-queue
 -- Author: Gabriel Bordeaux (gabfl)
 -- Github: https://github.com/gabfl/redis-priority-queue
--- Version: 1.0.3
+-- Version: 1.0.4
 -- (can only be used in 3.2+)
 
 -- Get mandatory vars

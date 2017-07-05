@@ -5,6 +5,9 @@ tools/
 __pycache__/
 *.py[cod]
 .Python
+rpq.egg-info/
+build/
+dist/
 
 # Mac
 .DS_Store

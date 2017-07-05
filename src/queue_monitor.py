@@ -22,6 +22,10 @@ parser.add_argument("-s", "--sort_groups",
                     help="Sort groups", type=json.loads)
 args = parser.parse_args()
 
+# Global vars
+t = None
+r = None
+
 def setSortGroups(sortGroups = None):
     """Return the sorting groups, either user defined or from the default list"""
     if sortGroups is None: # Default groups
@@ -32,10 +36,14 @@ def setSortGroups(sortGroups = None):
 
 def getCount(queueName, min, max):
     """Fetches set count from Redis"""
+
+    global r
+
     return r.zcount(queueName, min, max);
 
 def getColumnTitle(min, max):
     """Human readable column titles"""
+
     if str(min) == '-inf' and str(max) == '+inf':
         return 'Total';
     elif str(min) == '-inf':
@@ -49,38 +57,46 @@ def getColumnTitle(min, max):
 
 def setColumnAlign(titles):
     """Set PrettyTable column alignment"""
-    global t;
+
+    global t
+
     for i, title in enumerate(titles):
         if i == 0: # First column (title)
             t.align[title] = 'l'; # Left
         else: # Any other column
             t.align[title] = 'r'; # Right
 
-# Redis connection
-r = redis.StrictRedis(host=args.host, port=args.port, db=args.dbnum, password=args.auth)
+def main():
+    global t, r
 
-# Sort groups
-sortGroups = setSortGroups(args.sort_groups);
+    # Redis connection
+    r = redis.StrictRedis(host = args.host, port = args.port, db = args.dbnum, password = args.auth)
 
-# Column titles (queue name, then a column per sorting group)
-titles = ['Queue name'];
-titles.extend([getColumnTitle(sortGroup[0], sortGroup[1]) for sortGroup in sortGroups]);
+    # Sort groups
+    sortGroups = setSortGroups(args.sort_groups);
 
-# Create table
-t = PrettyTable(titles);
-setColumnAlign(titles);
+    # Column titles (queue name, then a column per sorting group)
+    titles = ['Queue name'];
+    titles.extend([getColumnTitle(sortGroup[0], sortGroup[1]) for sortGroup in sortGroups]);
 
-# Get queues
-queueNames = r.smembers('rpq|names')
+    # Create table
+    t = PrettyTable(titles);
+    setColumnAlign(titles);
 
-# Add a row par queue
-for queueName in sorted(queueNames):
-    # Get row
-    row = [queueName.decode("utf-8")]
-    row.extend(['{0:,}'.format(getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups]);
+    # Get queues
+    queueNames = r.smembers('rpq|names')
 
-    # Add row
-    t.add_row(row);
+    # Add a row par queue
+    for queueName in sorted(queueNames):
+        # Get row
+        row = [queueName.decode("utf-8")]
+        row.extend(['{0:,}'.format(getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups]);
 
-# Print table
-print (t);
+        # Add row
+        t.add_row(row);
+
+    # Print table
+    print (t);
+
+if __name__ == '__main__':
+    main()
