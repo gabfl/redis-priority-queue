@@ -103,14 +103,20 @@ Output is similar to [ZCOUNT](https://redis.io/commands/zcount)
 
 The queues can be easily monitored with the Python script `src/queue_monitor.py`
 
-To use the queue monitor, you need to ensure python is installed and use the following command to add the required packages:
-`pip install prettytable argparse redis json`
+To use the queue monitor, you need to ensure python is installed and use the following command:
+```
+# Installation
+pip3 install rpq
+
+# Usage
+rpq_monitor
+```
 
 ### Usage example
 
 ```
 # Basic usage
-./src/queue_monitor.py -H [host] -p [port] (-a [auth] -n [dbnum])
+rpq_monitor -H [host] -p [port] (-a [auth] -n [dbnum])
 +-------------------+-------+-----------+----------+
 | Queue name        | Total | Up to 100 | From 101 |
 +-------------------+-------+-----------+----------+
@@ -122,7 +128,7 @@ To use the queue monitor, you need to ensure python is installed and use the fol
 +-------------------+-------+-----------+----------+
 
 # Specify your own groups
-./src/queue_monitor.py -H [host] -p [port] (-a [auth] -n [dbnum]) -s "[[0, 1000], [1001, 2000], [2001, 3000]]"
+rpq_monitor -H [host] -p [port] (-a [auth] -n [dbnum]) -s "[[0, 1000], [1001, 2000], [2001, 3000]]"
 +-------------------+-------+------------+----------------+----------------+
 | Queue name        | Total | 0 to 1,000 | 1,001 to 2,000 | 2,001 to 3,000 |
 +-------------------+-------+------------+----------------+----------------+
