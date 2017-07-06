@@ -1,10 +1,16 @@
 from setuptools import setup
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
+
 setup (
     name = 'rpq',
-    version = '1.0.5',
+    version = '1.0.5b',
     description = 'Simple Redis work queue with added features (priorities, pop multiple items at once)',
-    long_description = 'README.md',
+    long_description = long_description,
     author = 'Gabriel Bordeaux',
     author_email = 'pypi@gab.lc',
     url = 'https://github.com/gabfl/redis-priority-queue',
