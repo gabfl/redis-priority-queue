@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup (
     name = 'rpq',
-    version = '1.0.4',
+    version = '1.0.5',
     description = 'Simple Redis work queue with added features (priorities, pop multiple items at once)',
     long_description = 'README.md',
     author = 'Gabriel Bordeaux',
