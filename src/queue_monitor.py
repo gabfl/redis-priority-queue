@@ -70,7 +70,13 @@ def main():
     global t, r
 
     # Redis connection
-    r = redis.StrictRedis(host = args.host, port = args.port, db = args.dbnum, password = args.auth)
+    try:
+        r = redis.StrictRedis(host = args.host, port = args.port, db = args.dbnum, password = args.auth)
+    except Exception as e:
+        import sys
+
+        print('Redis error: %s' % (e))
+        sys.exit()
 
     # Sort groups
     sortGroups = setSortGroups(args.sort_groups);
@@ -84,7 +90,13 @@ def main():
     setColumnAlign(titles);
 
     # Get queues
-    queueNames = r.smembers('rpq|names')
+    try:
+        queueNames = r.smembers('rpq|names')
+    except Exception as e:
+        import sys
+
+        print('Redis error: %s' % (e))
+        sys.exit()
 
     # Add a row par queue
     for queueName in sorted(queueNames):
