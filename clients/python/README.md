@@ -23,11 +23,11 @@ from rpq import RpqQueue
 from rpq import RpqLua
 
 # Redis instance
-r = redis.StrictRedis(host = '127.0.0.1', port = 6379, db = 0, password = '')
+r = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='')
 
 # Load LUA Script
-RpqLua = RpqLua.RpqLua(r);
-queue = RpqLua.register();
+RpqLua = RpqLua.RpqLua(r)
+queue = RpqLua.register()
 
 # RpqQueue instance
 RpqQueue = RpqQueue.RpqQueue(queue)
@@ -39,14 +39,14 @@ RpqQueue.setqueueName('simple_queue')
 
 print ('* push:')
 res = RpqQueue.push('test_item')
-print (res);
+print (res)
 
 print ('* pop:')
 item = RpqQueue.popOne()
 if item:
-    print (item);
+    print (item)
 else:
-    print ('Queue is empty');
+    print ('Queue is empty')
 ```
 
 ## More examples
