@@ -5,7 +5,9 @@
 # Github: https://github.com/gabfl/redis-priority-queue
 # Compatible with python 2.7 & 3
 
-import redis, argparse, json
+import redis
+import argparse
+import json
 from prettytable import PrettyTable
 
 # Parse arguments
@@ -26,26 +28,29 @@ args = parser.parse_args()
 t = None
 r = None
 
-def setSortGroups(sortGroups = None):
+
+def setSortGroups(sortGroups=None):
     """Return the sorting groups, either user defined or from the default list"""
-    if sortGroups is None: # Default groups
-        return [('-inf', '+inf'), ('-inf', 100), (101, '+inf')];
+    if sortGroups is None:  # Default groups
+        return [('-inf', '+inf'), ('-inf', 100), (101, '+inf')]
     else:
         sortGroups.insert(0, ('-inf', '+inf'))
-        return sortGroups;
+        return sortGroups
+
 
 def getCount(queueName, min, max):
     """Fetches set count from Redis"""
 
     global r
 
-    return r.zcount(queueName, min, max);
+    return r.zcount(queueName, min, max)
+
 
 def getColumnTitle(min, max):
     """Human readable column titles"""
 
     if str(min) == '-inf' and str(max) == '+inf':
-        return 'Total';
+        return 'Total'
     elif str(min) == '-inf':
         return 'Up to ' + '{0:,}'.format(max);
     elif str(max) == '+inf':
@@ -55,23 +60,25 @@ def getColumnTitle(min, max):
     else:
         return '{0:,}'.format(min) + ' to ' + '{0:,}'.format(max);
 
+
 def setColumnAlign(titles):
     """Set PrettyTable column alignment"""
 
     global t
 
     for i, title in enumerate(titles):
-        if i == 0: # First column (title)
-            t.align[title] = 'l'; # Left
-        else: # Any other column
-            t.align[title] = 'r'; # Right
+        if i == 0:  # First column (title)
+            t.align[title] = 'l'  # Left
+        else:  # Any other column
+            t.align[title] = 'r'  # Right
+
 
 def main():
     global t, r
 
     # Redis connection
     try:
-        r = redis.StrictRedis(host = args.host, port = args.port, db = args.dbnum, password = args.auth)
+        r = redis.StrictRedis(host=args.host, port=args.port, db=args.dbnum, password=args.auth)
     except Exception as e:
         import sys
 
@@ -79,15 +86,15 @@ def main():
         sys.exit()
 
     # Sort groups
-    sortGroups = setSortGroups(args.sort_groups);
+    sortGroups = setSortGroups(args.sort_groups)
 
     # Column titles (queue name, then a column per sorting group)
-    titles = ['Queue name'];
-    titles.extend([getColumnTitle(sortGroup[0], sortGroup[1]) for sortGroup in sortGroups]);
+    titles = ['Queue name']
+    titles.extend([getColumnTitle(sortGroup[0], sortGroup[1]) for sortGroup in sortGroups])
 
     # Create table
-    t = PrettyTable(titles);
-    setColumnAlign(titles);
+    t = PrettyTable(titles)
+    setColumnAlign(titles)
 
     # Get queues
     try:
@@ -105,10 +112,11 @@ def main():
         row.extend(['{0:,}'.format(getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups]);
 
         # Add row
-        t.add_row(row);
+        t.add_row(row)
 
     # Print table
-    print (t);
+    print (t)
+
 
 if __name__ == '__main__':
     main()
