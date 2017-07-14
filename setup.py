@@ -8,7 +8,7 @@ except(IOError, ImportError):
 
 setup(
     name='rpq',
-    version='1.2',
+    version='1.2.1',
     description='Simple Redis work queue with added features (priorities, pop multiple items at once)',
     long_description=long_description,
     author='Gabriel Bordeaux',
@@ -26,4 +26,18 @@ setup(
             'rpq_monitor = rpq_src.queue_monitor:main',
         ],
     },
+    classifiers=[  # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        'Topic :: Software Development',
+        'Topic :: Database',
+        'Topic :: Database :: Database Engines/Servers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: MacOS',
+        'Operating System :: POSIX :: Linux',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python',
+        #'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
+    ],
 )
