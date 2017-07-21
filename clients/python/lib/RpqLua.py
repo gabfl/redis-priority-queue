@@ -13,7 +13,7 @@ class RpqLua:
         # Load LUA source
         self.loadSource(self.getLuaPath())
 
-        # REgister LUA script
+        # Register LUA script
         self.register()
 
     def getLuaPath(self):
@@ -64,7 +64,6 @@ class RpqLua:
 
         # Check if the script exists
         t = self.connection.script_exists(self.sha1)
-        print(t)
 
         if t:
             if t[0] == True:
