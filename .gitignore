@@ -5,7 +5,7 @@ tools/
 __pycache__/
 *.py[cod]
 .Python
-rpq.egg-info/
+*.egg-info
 build/
 dist/
 

@@ -30,7 +30,10 @@ r = None
 
 
 def setSortGroups(sortGroups=None):
-    """Return the sorting groups, either user defined or from the default list"""
+    """
+        Return the sorting groups, either user defined or from the default list
+    """
+
     if sortGroups is None:  # Default groups
         return [('-inf', '+inf'), ('-inf', 100), (101, '+inf')]
     else:
@@ -39,7 +42,9 @@ def setSortGroups(sortGroups=None):
 
 
 def getCount(queueName, min, max):
-    """Fetches set count from Redis"""
+    """
+        Fetches set count from Redis
+    """
 
     global r
 
@@ -47,7 +52,9 @@ def getCount(queueName, min, max):
 
 
 def getColumnTitle(min, max):
-    """Human readable column titles"""
+    """
+        Human readable column titles
+    """
 
     if str(min) == '-inf' and str(max) == '+inf':
         return 'Total'
@@ -62,7 +69,9 @@ def getColumnTitle(min, max):
 
 
 def setColumnAlign(titles):
-    """Set PrettyTable column alignment"""
+    """
+        Set PrettyTable column alignment
+    """
 
     global t
 
