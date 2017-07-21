@@ -2,8 +2,7 @@
 
 # Packages
 import redis
-from rpq import RpqQueue
-from rpq import RpqLua
+from rpq.RpqQueue import RpqQueue
 
 
 def listItems(items):
@@ -15,34 +14,27 @@ def listItems(items):
 # Redis instance
 r = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='')
 
-# Load LUA Script
-RpqLua = RpqLua.RpqLua(r)
-queue = RpqLua.register()
-
-# RpqQueue instance
-RpqQueue = RpqQueue.RpqQueue(queue)
-
-# Set queue name
-RpqQueue.setqueueName('simple_queue')
+# RpqQueue
+queue = RpqQueue(r, 'simple_queue')
 
 # Peek in a queue
 
 print ('* peek (one):')
-item = RpqQueue.peekOne()
+item = queue.peekOne()
 if item:
     print (item)
 else:
     print ('Queue is empty')
 
 print ('* peek (one, ascending):')
-item = RpqQueue.peekOne('asc')
+item = queue.peekOne('asc')
 if item:
     print (item)
 else:
     print ('Queue is empty')
 
 print ('* peek (many):')
-items = RpqQueue.peekMany('desc', 5)
+items = queue.peekMany('desc', 5)
 if items:
     listItems(items)
 else:
