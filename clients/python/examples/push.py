@@ -24,12 +24,12 @@ queue = RpqQueue(r, 'simple_queue')
 
 # Push an item
 
-print ('* push (without priority):')
+print('* push (without priority):')
 item = getItem()  # Item we will push to the queue
-print ('Pushing item "%s" to the queue' % (item))
-print (queue.push(item))
+print('Pushing item "%s" to the queue' % (item))
+print(queue.push(item))
 
-print ('* push (with priority):')
+print('* push (with priority):')
 item = getItem()  # Item we will push to the queue
-print ('Pushing item "%s" to the queue' % (item))
-print (queue.push(item, 1000))
+print('Pushing item "%s" to the queue' % (item))
+print(queue.push(item, 1000))

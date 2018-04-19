@@ -12,11 +12,11 @@ queue = RpqQueue(r, 'simple_queue')
 
 # Get queue size
 
-print ('* count (total):')
-print (queue.count())
+print('* count (total):')
+print(queue.count())
 
-print ('* count (0 >= priority >= 100):')
-print (queue.count(0, 100))
+print('* count (0 >= priority >= 100):')
+print(queue.count(0, 100))
 
-print ('* count (priority > 100):')
-print (queue.count(101))
+print('* count (priority > 100):')
+print(queue.count(101))

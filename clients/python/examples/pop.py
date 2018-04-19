@@ -8,7 +8,7 @@ from rpq.RpqQueue import RpqQueue
 def listItems(items):
     '''Helper to print items'''
     for item in items:
-        print (item)
+        print(item)
 
 
 # Redis instance
@@ -19,23 +19,23 @@ queue = RpqQueue(r, 'simple_queue')
 
 # Pop an item / some items
 
-print ('* pop (one):')
+print('* pop (one):')
 item = queue.popOne()
 if item:
-    print (item)
+    print(item)
 else:
-    print ('Queue is empty')
+    print('Queue is empty')
 
-print ('* pop (one, ascending):')
+print('* pop (one, ascending):')
 item = queue.popOne('asc')
 if item:
-    print (item)
+    print(item)
 else:
-    print ('Queue is empty')
+    print('Queue is empty')
 
-print ('* pop (many):')
+print('* pop (many):')
 items = queue.popMany('desc', 5)
 if items:
     listItems(items)
 else:
-    print ('Queue is empty')
+    print('Queue is empty')

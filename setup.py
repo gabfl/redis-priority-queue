@@ -20,7 +20,8 @@ setup(
     package_data={
         'rpq_src': ['*.lua'],
     },
-    install_requires=['redis', 'argparse', 'prettytable'],  # external dependencies
+    install_requires=['redis', 'argparse',
+                      'prettytable'],  # external dependencies
     entry_points={
         'console_scripts': [
             'rpq_monitor = rpq_src.queue_monitor:main',
@@ -37,7 +38,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python',
-        #'Development Status :: 4 - Beta',
+        #  'Development Status :: 4 - Beta',
         'Development Status :: 5 - Production/Stable',
     ],
 )
