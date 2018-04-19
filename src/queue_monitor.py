@@ -59,13 +59,13 @@ def getColumnTitle(min, max):
     if str(min) == '-inf' and str(max) == '+inf':
         return 'Total'
     elif str(min) == '-inf':
-        return 'Up to ' + '{0:,}'.format(max);
+        return 'Up to ' + '{0:,}'.format(max)
     elif str(max) == '+inf':
-        return 'From ' + '{0:,}'.format(min);
+        return 'From ' + '{0:,}'.format(min)
     elif min == max:
-        return '{0:,}'.format(min);
+        return '{0:,}'.format(min)
     else:
-        return '{0:,}'.format(min) + ' to ' + '{0:,}'.format(max);
+        return '{0:,}'.format(min) + ' to ' + '{0:,}'.format(max)
 
 
 def setColumnAlign(titles):
@@ -87,7 +87,8 @@ def main():
 
     # Redis connection
     try:
-        r = redis.StrictRedis(host=args.host, port=args.port, db=args.dbnum, password=args.auth)
+        r = redis.StrictRedis(host=args.host, port=args.port,
+                              db=args.dbnum, password=args.auth)
     except Exception as e:
         import sys
 
@@ -99,7 +100,8 @@ def main():
 
     # Column titles (queue name, then a column per sorting group)
     titles = ['Queue name']
-    titles.extend([getColumnTitle(sortGroup[0], sortGroup[1]) for sortGroup in sortGroups])
+    titles.extend([getColumnTitle(sortGroup[0], sortGroup[1])
+                   for sortGroup in sortGroups])
 
     # Create table
     t = PrettyTable(titles)
@@ -118,13 +120,14 @@ def main():
     for queueName in sorted(queueNames):
         # Get row
         row = [queueName.decode("utf-8")]
-        row.extend(['{0:,}'.format(getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups]);
+        row.extend(['{0:,}'.format(
+            getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups])
 
         # Add row
         t.add_row(row)
 
     # Print table
-    print (t)
+    print(t)
 
 
 if __name__ == '__main__':

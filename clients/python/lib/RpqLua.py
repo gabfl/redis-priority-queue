@@ -66,7 +66,7 @@ class RpqLua:
         t = self.connection.script_exists(self.sha1)
 
         if t:
-            if t[0] == True:
+            if t[0] is True:
                 return True
 
         return False
