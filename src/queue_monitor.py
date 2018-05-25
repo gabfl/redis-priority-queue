@@ -10,20 +10,6 @@ import argparse
 import json
 from prettytable import PrettyTable
 
-# Parse arguments
-parser = argparse.ArgumentParser()
-parser.add_argument("-H", "--host", default="127.0.0.1",
-                    help="Redis server host")
-parser.add_argument("-p", "--port", type=int, default=6379,
-                    help="Redis server port")
-parser.add_argument("-a", "--auth",
-                    help="Redis server authentification")
-parser.add_argument("-n", "--dbnum", type=int, default=0,
-                    help="Redis server database number")
-parser.add_argument("-s", "--sort_groups",
-                    help="Sort groups", type=json.loads)
-args = parser.parse_args()
-
 # Global vars
 t = None
 r = None
@@ -41,7 +27,7 @@ def setSortGroups(sortGroups=None):
         return sortGroups
 
 
-def getCount(queueName, min, max):
+def getCount(queueName, min='-inf', max='+inf'):
     """
         Fetches set count from Redis
     """
@@ -51,7 +37,7 @@ def getCount(queueName, min, max):
     return r.zcount(queueName, min, max)
 
 
-def getColumnTitle(min, max):
+def getColumnTitle(min='-inf', max='+inf'):
     """
         Human readable column titles
     """
@@ -82,21 +68,22 @@ def setColumnAlign(titles):
             t.align[title] = 'r'  # Right
 
 
-def main():
+def monitor(host, port, dbnum, password, sort_groups=None):
     global t, r
 
     # Redis connection
     try:
-        r = redis.StrictRedis(host=args.host, port=args.port,
-                              db=args.dbnum, password=args.auth)
-    except Exception as e:
+        r = redis.StrictRedis(host=host, port=port,
+                              db=dbnum, password=password)
+        r.ping()
+    except redis.exceptions.ConnectionError as e:
         import sys
 
         print('Redis error: %s' % (e))
         sys.exit()
 
     # Sort groups
-    sortGroups = setSortGroups(args.sort_groups)
+    sortGroups = setSortGroups(sort_groups)
 
     # Column titles (queue name, then a column per sorting group)
     titles = ['Queue name']
@@ -108,13 +95,7 @@ def main():
     setColumnAlign(titles)
 
     # Get queues
-    try:
-        queueNames = r.smembers('rpq|names')
-    except Exception as e:
-        import sys
-
-        print('Redis error: %s' % (e))
-        sys.exit()
+    queueNames = r.smembers('rpq|names')
 
     # Add a row par queue
     for queueName in sorted(queueNames):
@@ -128,6 +109,28 @@ def main():
 
     # Print table
     print(t)
+
+
+def main():
+    # Parse arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-H", "--host", default="127.0.0.1",
+                        help="Redis server host")
+    parser.add_argument("-p", "--port", type=int, default=6379,
+                        help="Redis server port")
+    parser.add_argument("-a", "--auth",
+                        help="Redis server authentification")
+    parser.add_argument("-n", "--dbnum", type=int, default=0,
+                        help="Redis server database number")
+    parser.add_argument("-s", "--sort_groups",
+                        help="Sort groups", type=json.loads)
+    args = parser.parse_args()
+
+    monitor(host=args.host,
+            port=args.port,
+            dbnum=args.dbnum,
+            password=args.auth,
+            sort_groups=args.sort_groups)
 
 
 if __name__ == '__main__':
