@@ -1,7 +1,18 @@
 language: python
 python:
+  - "3.5"
   - "3.6"
+services:
+  - redis-server
 before_install:
-  - pip install pycodestyle
+  - pip install pycodestyle codecov
 script:
   - pycodestyle --exclude=venv --ignore=E501 .
+  - pytest
+  - coverage run --parallel-mode --branch --source=. -m unittest discover -bv
+  - coverage run --parallel-mode --branch --source=./clients/. -m unittest discover ./clients/. -bv
+  - coverage combine
+  - coverage report -m
+after_success:
+  - codecov
+
