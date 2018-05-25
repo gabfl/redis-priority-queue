@@ -1,6 +1,3 @@
-# Misc
-tools/
-
 # Python
 __pycache__/
 *.py[cod]
@@ -8,6 +5,15 @@ __pycache__/
 *.egg-info
 build/
 dist/
+venv/
+.pytest_cache
+
+# Codecov
+.coverage
+coverage.xml
+
+# Misc
+tools/
 
 # Mac
 .DS_Store

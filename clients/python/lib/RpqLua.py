@@ -41,12 +41,16 @@ class RpqLua:
 
         self.connection = connection
 
+        return True
+
     def loadSource(self, path):
         """
             Load LUA script source code from a file
         """
 
         self.source = self.file_get_contents(path)
+
+        return True
 
     def getSha1(self):
         """
@@ -65,9 +69,8 @@ class RpqLua:
         # Check if the script exists
         t = self.connection.script_exists(self.sha1)
 
-        if t:
-            if t[0] is True:
-                return True
+        if t and t[0]:
+            return True
 
         return False
 
@@ -77,6 +80,8 @@ class RpqLua:
         """
 
         self.connection.script_load(self.source)
+
+        return True
 
     def register(self):
         """
@@ -89,6 +94,8 @@ class RpqLua:
         # Load if needed
         if not self.exists():
             self.load()
+
+        return True
 
     def eval(self, *args):
         """

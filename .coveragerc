@@ -1,0 +1,13 @@
+[run]
+source=redis-priority-queue
+
+[report]
+omit =
+  setup.py
+  src/__main__.py
+  src/unittest/*
+  clients/python/unittest/*
+  venv/*
+exclude_lines =
+  if __name__ == "__main__":
+  main()
