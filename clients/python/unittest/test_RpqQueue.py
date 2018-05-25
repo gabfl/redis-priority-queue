@@ -7,10 +7,16 @@ from ..lib.RpqQueue import RpqQueue
 
 class Test(unittest.TestCase):
 
+    redis_host = '127.0.0.1'
+    # redis_port = 8379
+    redis_port = 6379
+    redis_db = 0
+    redis_password = ''
+
     def setUp(self):
         # Redis instance
-        #r = redis.StrictRedis(host='127.0.0.1', port=8379, db=0, password='')
-        r = redis.StrictRedis(host='127.0.0.1', port=6379, db=0, password='')
+        r = redis.StrictRedis(host=self.redis_host, port=self.redis_port,
+                              db=self.redis_db, password=self.redis_password)
 
         # RpqQueue instance
         self.rq = RpqQueue(r, 'test_queue')
@@ -29,7 +35,7 @@ class Test(unittest.TestCase):
         self.assertEqual(self.rq.queueName, 'some_queue')
 
     def test_push(self):
-        self.assertEqual(self.rq.push('item'), 0)
+        self.assertTrue(self.rq.push('item') in [0, 1])
 
     def test_pop(self):
         self.rq.setqueueName('test_pop')
