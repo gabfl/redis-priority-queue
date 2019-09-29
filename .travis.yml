@@ -10,11 +10,9 @@ before_install:
   - python setup.py install
 script:
   - pycodestyle --exclude=venv --ignore=E501 .
-  - pytest
-  - coverage run --parallel-mode --branch --source=. -m unittest discover -bv
-  - coverage run --parallel-mode --branch --source=./clients/. -m unittest discover ./clients/. -bv
+  - coverage run --parallel-mode --branch --source=. -m pytest
+  - coverage run --parallel-mode --branch --source=./clients/. -m pytest
   - coverage combine
-  - coverage report -m
 after_success:
   - codecov
 
