@@ -8,7 +8,7 @@ except(IOError, ImportError):
 
 setup(
     name='rpq',
-    version='2.1',
+    version='2.2',
     description='Simple Redis work queue with added features (priorities, pop multiple items at once)',
     long_description=long_description,
     author='Gabriel Bordeaux',
