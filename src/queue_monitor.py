@@ -8,6 +8,7 @@
 import redis
 import argparse
 import json
+import csv
 from prettytable import PrettyTable
 
 # Global vars
@@ -68,7 +69,7 @@ def setColumnAlign(titles):
             t.align[title] = 'r'  # Right
 
 
-def monitor(host, port, dbnum, password, sort_groups=None):
+def monitor(host, port, dbnum, password, sort_groups=None, out='table'):
     global t, r
 
     # Redis connection
@@ -91,24 +92,35 @@ def monitor(host, port, dbnum, password, sort_groups=None):
                    for sortGroup in sortGroups])
 
     # Create table
-    t = PrettyTable(titles)
-    setColumnAlign(titles)
+    if out == 'table':
+        t = PrettyTable(titles)
+        setColumnAlign(titles)
 
     # Get queues
     queueNames = r.smembers('rpq|names')
 
     # Add a row par queue
+    rows = []
     for queueName in sorted(queueNames):
         # Get row
         row = [queueName.decode("utf-8")]
-        row.extend(['{0:,}'.format(
-            getCount(queueName, sortGroup[0], sortGroup[1])) for sortGroup in sortGroups])
+        row.extend([str(getCount(queueName, sortGroup[0], sortGroup[1]))
+                    for sortGroup in sortGroups])
 
         # Add row
-        t.add_row(row)
+        rows.append(row)
 
     # Print table
-    print(t)
+    if out == 'table':
+        for row in rows:
+            # Add thousand separators to all items except the first one
+            row = ['{0:,}'.format(int(i)) if i != row[0] else i for i in row]
+
+            t.add_row(row)
+        print(t)
+    else:
+        for row in rows:
+            print(','.join(row))
 
 
 def main():
@@ -124,13 +136,17 @@ def main():
                         help="Redis server database number")
     parser.add_argument("-s", "--sort_groups",
                         help="Sort groups", type=json.loads)
+    parser.add_argument("-o", "--out",
+                        help="Output type", choices=['table', 'csv'],
+                        default='table')
     args = parser.parse_args()
 
     monitor(host=args.host,
             port=args.port,
             dbnum=args.dbnum,
             password=args.auth,
-            sort_groups=args.sort_groups)
+            sort_groups=args.sort_groups,
+            out=args.out)
 
 
 if __name__ == '__main__':
