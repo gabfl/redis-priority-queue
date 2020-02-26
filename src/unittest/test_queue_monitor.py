@@ -48,10 +48,18 @@ class Test(unittest.TestCase):
         self.assertIsInstance(queue_monitor.t, prettytable.PrettyTable)
 
     def test_monitor(self):
+        # Table
         self.assertIsNone(queue_monitor.monitor(host=self.redis_host,
                                                 port=self.redis_port,
                                                 dbnum=self.redis_db,
                                                 password=self.redis_password))
+
+        # CSV
+        self.assertIsNone(queue_monitor.monitor(host=self.redis_host,
+                                                port=self.redis_port,
+                                                dbnum=self.redis_db,
+                                                password=self.redis_password
+                                                out='csv'))
 
     def test_monitor_2(self):
         # Test exception for invalid Redis connection
