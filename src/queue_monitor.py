@@ -8,7 +8,6 @@
 import redis
 import argparse
 import json
-import csv
 from prettytable import PrettyTable
 
 # Global vars
