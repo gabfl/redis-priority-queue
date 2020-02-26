@@ -58,7 +58,7 @@ class Test(unittest.TestCase):
         self.assertIsNone(queue_monitor.monitor(host=self.redis_host,
                                                 port=self.redis_port,
                                                 dbnum=self.redis_db,
-                                                password=self.redis_password
+                                                password=self.redis_password,
                                                 out='csv'))
 
     def test_monitor_2(self):
