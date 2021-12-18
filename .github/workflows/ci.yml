@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+      - uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: '6.x'
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Setup timezone
