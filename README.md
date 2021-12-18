@@ -1,7 +1,7 @@
 # redis-priority-queue
 
 [![Pypi](https://img.shields.io/pypi/v/rpq.svg)](https://pypi.org/project/rpq)
-[![Build Status](https://travis-ci.org/gabfl/redis-priority-queue.svg?branch=main)](https://travis-ci.org/gabfl/redis-priority-queue)
+[![Build Status](https://github.com/gabfl/redis-priority-queue/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/gabfl/redis-priority-queue/actions)
 [![codecov](https://codecov.io/gh/gabfl/redis-priority-queue/branch/main/graph/badge.svg)](https://codecov.io/gh/gabfl/redis-priority-queue)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/gabfl/redis-priority-queue/main/LICENSE)
 
