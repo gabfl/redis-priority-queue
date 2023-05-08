@@ -27,7 +27,7 @@ jobs:
           timezone: EST
       - name: Install dependencies
         run: |
-          pip install pycodestyle codecov pytest
+          pip install pycodestyle coverage pytest
           python setup.py install
       - name: Run pycodestyle
         run: |
@@ -41,6 +41,8 @@ jobs:
       - name: Combine coverage report
         run: |
           coverage combine
-      - name: Report to codecov
+      - name: Upload coverage reports to Codecov
         run: |
-          codecov
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
