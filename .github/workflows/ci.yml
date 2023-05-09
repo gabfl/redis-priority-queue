@@ -25,9 +25,13 @@ jobs:
         uses: zcong1993/setup-timezone@master
         with:
           timezone: EST
+      - name: Install deb dependencies
+        run: |
+          sudo apt update
+          sudo apt install pandoc
       - name: Install dependencies
         run: |
-          pip install pycodestyle coverage pytest
+          pip install pycodestyle coverage pytest pypandoc
           python setup.py install
       - name: Run pycodestyle
         run: |
